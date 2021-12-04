@@ -36,7 +36,8 @@ public class Company {
 	}
 	
 	public void recievePayment(int payment) {
-		this.konto.setBankBalance(konto.getBankBalance() + payment);
+		int current = konto.getBankBalance();
+		this.konto.setBankBalance(current + payment);
 	}
 	
 	//this mehhod can be used for the test after pay

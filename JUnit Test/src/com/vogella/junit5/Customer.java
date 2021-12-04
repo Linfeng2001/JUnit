@@ -1,12 +1,17 @@
 package com.vogella.junit5;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Customer {
 	private Konto konto;
 	private String CustomerName;
+	private List <String> services;
 	
 	public Customer(Konto konto, String Name) {
 		this.konto = konto;
 		this.CustomerName = Name;
+		services = new ArrayList <String> ();
 	}
 	
 	//heler method: check if the svervice that customer need is available 
@@ -25,9 +30,14 @@ public class Customer {
 		return false;
 	}
 	
+	public int getNummberOfServices() {
+		return services.size();
+	}
+	
 	public String buyService(String serviceName, Company company, int price) {
 		if(serviceAvailable(serviceName, company) && !notEnoughToPay(price)) {
 			pay(price, company);
+			services.add(serviceName);
 			return "succesfull bought " + serviceName;
 		}else {
 			return "unsuccesfull";
@@ -38,10 +48,10 @@ public class Customer {
 	//hleper method for pay
 	private boolean notEnoughToPay(int payment) {
 		if(konto.getBankBalance() <= 0 || konto.getBankBalance() < payment) {
-			return false;
+			return true;
 		}
 		else {
-			return true;
+			return false;
 		}
 	}
 	
